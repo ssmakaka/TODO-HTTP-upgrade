@@ -1,15 +1,16 @@
-let a = new XMLHttpRequest();
-a.onload = function () {
-    let tasks = JSON.parse(a.responseText);
-    console.log(tasks);
-    for (let task of tasks) {
-        createRow(task.title, task.done, task.category, task.id);
+setInterval(function () {
+    let a = new XMLHttpRequest();
+    a.onload = function () {
+        let tasks = JSON.parse(a.responseText);
+        console.log(tasks);
+        divContainer.innerText = "";
+        for (let task of tasks) {
+            createRow(task.title, task.done, task.category, task.id);
+        }
     }
-
-}
-a.open("GET", "https://todoappexamplejs.herokuapp.com/items.json");
-a.send();
-
+    a.open("GET", "https://todoappexamplejs.herokuapp.com/items.json");
+    a.send();
+}, 5000);
 
 function createItem(tag, className, parentItem, text) {
     let temp = document.createElement(tag);
